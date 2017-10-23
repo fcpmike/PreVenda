@@ -2,8 +2,8 @@ unit UPreencheItens;
 
 interface
 
-uses System.Classes, System.SysUtils, FMX.StdCtrls, FMX.TabControl, System.Generics.Collections,
-  FireDAC.Comp.Client, FireDAC.Stan.StorageBin, FMX.Dialogs,
+uses System.Classes, System.SysUtils, FMX.StdCtrls, FMX.TabControl,
+  System.Generics.Collections, FireDAC.Comp.Client, FireDAC.Stan.StorageBin, FMX.Dialogs,
   UItem;
 
 type
@@ -21,6 +21,7 @@ type
     procedure Execute; override;
   public
     constructor Create;
+    destructor Destroy; overload;
     property Tabela: String read FTabela write SetTabela;
     property Tab: TTabControl read FTabControl write SetTabControl;
     property ListaVenda: TObjectList<TItem> read FListaVenda write SetListaVenda;
@@ -37,6 +38,13 @@ begin
   inherited Create(True);
   FreeOnTerminate := False;
   FListaVenda := TObjectList<TItem>.Create;
+end;
+
+destructor TPreencheItens.Destroy;
+begin
+  if Assigned(FListaVenda) then
+    FreeAndNil(FListaVenda);
+  inherited;
 end;
 
 procedure TPreencheItens.Execute;

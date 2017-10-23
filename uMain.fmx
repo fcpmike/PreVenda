@@ -231,6 +231,7 @@ object FMain: TFMain
       'Port=3050'
       'Server=localhost'
       'DriverID=FB')
+    Connected = True
     LoginPrompt = False
     Left = 78
     Top = 84
